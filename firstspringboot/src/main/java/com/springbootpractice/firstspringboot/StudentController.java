@@ -1,23 +1,28 @@
 package com.springbootpractice.firstspringboot;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.springbootpractice.model.*;
-import java.util.*;
+
 @RestController
-@RequestMapping("api/student")
+@RequestMapping("/api/students")
 public class StudentController {
-	 @GetMapping
-     public List<Student> GetStudentInfo()
-     {
-			List<Student> obj = new ArrayList<Student>();
-			obj.add(new Student(1001,"Stu1","CS",45000));
-			obj.add(new Student(1002,"Stu1","CS",45000));
-			obj.add(new Student(1003,"Stu3","CS",45000));
-			obj.add(new Student(1004,"Stu4","IT",65000));
-			return obj;
-    	 
-     }
+	@Autowired
+    private StudentService studentService;
+
+    @PostMapping
+    public Student createStudent(@RequestBody Student student) {
+        return studentService.saveStudent(student);
+    }
+
+    @GetMapping
+    public List<Student> getAllStudents() {
+        return studentService.getAllStudents();
+    }
 
 }

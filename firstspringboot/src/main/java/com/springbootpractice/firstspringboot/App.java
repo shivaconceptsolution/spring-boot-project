@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = {
 	    "com.springbootpractice.model",
 	    "com.springbootpractice.firstspringboot"
+	   
 	    
 	})
 public class App {

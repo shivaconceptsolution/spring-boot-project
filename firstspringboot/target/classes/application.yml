@@ -14,3 +14,9 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
+  security:
+    user:
+      name: admin
+      password: admin123
+      roles: USER

@@ -14,16 +14,16 @@ public class RegServiceImpl implements RegService {
 	private  PasswordEncoder passwordEncoder;
 	@Override
 	public Reg saveReg(Reg r) {
-		r.setPassword(passwordEncoder.encode(r.getPassword()));
+	//	r.setPassword(passwordEncoder.encode(r.getPassword()));
+		r.setPassword(r.getPassword());
 		return regRepo.save(r);
 	}
 	@Override
 	public boolean verifyReg(Reg r) {
 		// TODO Auto-generated method stub
 		return regRepo.findByUsername(r.getUsername())
-                .map(user -> passwordEncoder.matches(r.getPassword(), user.getPassword()))
+                .map(user -> r.getPassword().equals(user.getPassword())) // plain text compare
                 .orElse(false);
-		//return  regRepo.findByUsernameAndPassword(r.getUsername(),passwordEncoder.matches(r.getPassword(), user.getPassword())).isPresent();
 	}
 
 }

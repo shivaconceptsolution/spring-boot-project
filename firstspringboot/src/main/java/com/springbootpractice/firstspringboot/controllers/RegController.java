@@ -16,7 +16,11 @@ public class RegController {
 
     @Autowired
     private RegService regService;
+    @Value("${spring.security.user.name}")
+    private String username;
 
+    @Value("${spring.security.user.password}")
+    private String password;
    
 
     @PostMapping("/reg")
@@ -32,8 +36,8 @@ public class RegController {
         if (regService.verifyReg(obj)) {
             response.put("status", "success");
             response.put("message", "Login successful");
-            response.put("username", "admin");
-            response.put("password","admin123"); // fixed key
+            response.put("username",username);
+            response.put("password",password); // fixed key
         } else {
             response.put("status", "fail");
             response.put("message", "Invalid username or password");

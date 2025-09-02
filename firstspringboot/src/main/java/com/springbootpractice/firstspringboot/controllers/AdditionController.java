@@ -1,5 +1,6 @@
 package com.springbootpractice.firstspringboot.controllers;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -11,38 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springbootpractice.model.AdditionRequest;
 import com.springbootpractice.model.AdditionResponse;
-
+import java.util.*;
 @RestController
-@RequestMapping("/apiadd")
 public class AdditionController {
-@GetMapping
-public String TestGetMapping()
-{
-	return "Http GetMapping";
-}
-@PostMapping
-public AdditionResponse AddMethod(@RequestBody AdditionRequest obj)
-{
-	 AdditionResponse obj1 = new AdditionResponse();
-	 int result = obj.getNum1()+obj.getNum2();
-	 obj1.setResult(result);
-	 return obj1;
+@GetMapping("/myusers")
+public List<String> getUsers() {
+    return List.of("Shiva", "Amit", "Neha", "Rahul");
 }
 
-@PutMapping("/puturl")
-public String TestPutMapping()
-{
-	return "Http PutMapping";
-}
-
-@DeleteMapping
-public String TestDeleteMapping()
-{
-	return "Http DeleteMapping";
-}
-@PatchMapping
-public String TestPatchMapping()
-{
-	return "Http PatchMapping";
-}
 }

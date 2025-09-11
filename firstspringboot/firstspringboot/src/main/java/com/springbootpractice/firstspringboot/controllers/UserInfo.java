@@ -13,20 +13,25 @@ import org.springframework.web.client.RestTemplate;
 
 import com.springbootpractice.firstspringboot.models.Reg;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class UserInfo {
 	@GetMapping("/users")
-    public String showUsers(Model model) {
+    public String showUsers(Model model,HttpServletRequest request) {
 		
 		    RestTemplate restTemplate = new RestTemplate();
 
 		    // Your API URL
 		    String apiUrl = "http://localhost:8080/myusers";
-
+            HttpSession sess = request.getSession();
 		    // Basic Auth credentials
-		    String username = "admin";
-		    String password = "admin123";
-
+		 //   String username = "admin";
+		   // String password = "admin123";
+            String username = sess.getAttribute("ukey").toString();
+            String password = sess.getAttribute("upass").toString();
+            
 		    // Encode username:password as Base64
 		    String auth = username + ":" + password;
 		    byte[] encodedAuth = java.util.Base64.getEncoder().encode(auth.getBytes());
@@ -77,14 +82,19 @@ public class UserInfo {
 	}
 	
 	@PostMapping("/loginuser")
-	public String loginForm(@ModelAttribute("user") Reg user, Model model)
+	public String loginForm(@ModelAttribute("user") Reg user, Model model,HttpServletRequest request)
 	{
 		 RestTemplate restTemplate = new RestTemplate();
 		 String apiUrl = "http://localhost:8080/api/login";
 		 ResponseEntity<Map> response = restTemplate.postForEntity(apiUrl,user, Map.class);
 		 String status = (String) response.getBody().get("status");
+		 String username = (String) response.getBody().get("username");
+		 String password = (String) response.getBody().get("password");
 		 if(status.equals("success"))
 		 {
+			 HttpSession session = request.getSession();
+			 session.setAttribute("ukey",username);
+			 session.setAttribute("upass",password);
 			 return "redirect:/users";
 		 //model.addAttribute("message", "Login successfully!");
 		 

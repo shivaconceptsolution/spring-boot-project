@@ -24,7 +24,7 @@ public class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.csrf().disable()
         .authorizeHttpRequests(auth -> auth
-           .requestMatchers("/api/reg","/api/login","/h2-console/**","/myusers").permitAll()
+           .requestMatchers("/api/reg","/api/login","/h2-console/**","/register","/loginuser").permitAll()
            .anyRequest().authenticated())
         .headers(headers -> headers.frameOptions().disable()) // allow H2 console frames
         .httpBasic(Customizer.withDefaults());

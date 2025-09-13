@@ -24,7 +24,7 @@ public class UserInfo {
 		    RestTemplate restTemplate = new RestTemplate();
 
 		    // Your API URL
-		    String apiUrl = "http://localhost:8080/myusers";
+		    String apiUrl = "http://localhost:8080/api/students";
             HttpSession sess = request.getSession();
 		    // Basic Auth credentials
 		 //   String username = "admin";
@@ -51,7 +51,7 @@ public class UserInfo {
 		    // Extract users
 		    List<String> users = response.getBody();
 
-		    model.addAttribute("users", users);
+		    model.addAttribute("students", users);
 		    return "users"; // users.html under src/main/resources/templates
 		}
 
